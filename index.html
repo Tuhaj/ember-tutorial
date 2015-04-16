@@ -11,10 +11,38 @@
 </head>
 <body>
 
-  <script type="text/x-handlebars">
+
+  <script type="text/x-handlebars" data-template-name="index">
     <h2>Welcome to Ember.js</h2>
+    {{#each post in model}}
+      {{#blog-post title=post.title body=post.body}}
+      {{/blog-post}}
+    {{/each}}
   </script>
-  <script>App = Ember.Application.create();</script>
+
+  <script type="text/x-handlebars" data-template-name="components/blog-post">
+    <article class="blog-post">
+      <h1>{{title}}</h1>
+      <p>{{body}}</p>
+    </article>
+  </script>
+
+  <script>
+    App = Ember.Application.create();
+    posts = [{
+      title: "Rails is omakase",
+      body: "There are lots of à la carte software environments in this world."
+    }, {
+      title: "Broken Promises",
+      body: "James Coglan wrote a lengthy article about Promises in node.js."
+    }];
+
+    App.IndexRoute = Ember.Route.extend({
+      model: function() {
+        return posts;
+      }
+    });
+  </script>
 
 </body>
 </html>
