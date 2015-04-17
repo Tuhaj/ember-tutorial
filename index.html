@@ -15,8 +15,7 @@
   <script type="text/x-handlebars" data-template-name="index">
     <h2>Welcome to Ember.js</h2>
     {{#each post in model}}
-      {{#blog-post title=post.title body=post.body}}
-      {{/blog-post}}
+      {{blog-post title=post.title body=post.body}}
     {{/each}}
   </script>
 
@@ -52,7 +51,13 @@
     App.BlogPostComponent = Ember.Component.extend({
       showIf: function () {
         return this.get('title') === 'Rails is omakase'
-      }.property('title')
+      }.property('title'),
+
+      autoSetTitle: function () {
+        if(this.get('title') === 'change body'){
+          this.set('body', 'Body changed!')
+        }
+      }.observes('title')
     })
   </script>
 
