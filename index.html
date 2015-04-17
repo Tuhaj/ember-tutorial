@@ -22,7 +22,9 @@
 
   <script type="text/x-handlebars" data-template-name="components/blog-post">
     <article class="blog-post">
-      {{hello}}
+      {{#if showIf}}
+        <p>TESTING IF</p>
+      {{/if}}
       <h1>{{title}}</h1>
       <p>{{body}}</p>
       <p>Edit title: {{input value=title}}</p>
@@ -46,7 +48,9 @@
     });
 
     App.BlogPostComponent = Ember.Component.extend({
-      hello: 'world!'
+      showIf: function () {
+        return this.get('title') === 'Rails is omakase'
+      }.property('title')
     })
   </script>
 
