@@ -22,8 +22,10 @@
 
   <script type="text/x-handlebars" data-template-name="components/blog-post">
     <article class="blog-post">
+      {{hello}}
       <h1>{{title}}</h1>
       <p>{{body}}</p>
+      <p>Edit title: {{input value=title}}</p>
     </article>
   </script>
 
@@ -42,6 +44,10 @@
         return posts;
       }
     });
+
+    App.BlogPostComponent = Ember.Component.extend({
+      hello: 'world!'
+    })
   </script>
 
 </body>
