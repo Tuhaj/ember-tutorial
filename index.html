@@ -45,9 +45,7 @@
 
     App.IndexRoute = Ember.Route.extend({
       model: function() {
-        return new Ember.RSVP.Promise(function (resolve, reject) {
-          $.ajax('http://localhost:3000/postss').then(resolve, reject)
-        })
+        return new Ember.RSVP.Promise($.ajax('http://localhost:3000/posts').then)
       }
     });
 
