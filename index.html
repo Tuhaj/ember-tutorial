@@ -19,6 +19,10 @@
     {{/each}}
   </script>
 
+  <script type="text/x-handlebars" data-template-name="loading">
+    <h1>...</h1>
+  </script>
+
   <script type="text/x-handlebars" data-template-name="components/blog-post">
     <article class="blog-post">
       {{#if showIf}}
@@ -34,23 +38,26 @@
 
   <script>
     App = Ember.Application.create();
-    posts = [{
-      title: "Rails is omakase",
-      body: "There are lots of à la carte software environments in this world."
-    }, {
-      title: "Broken Promises",
-      body: "James Coglan wrote a lengthy article about Promises in node.js."
-    }];
 
     App.IndexRoute = Ember.Route.extend({
       model: function() {
-        return posts;
+        var resolver;
+        var promise = new Ember.RSVP.Promise(function (resolve, reject) {
+          resolver = resolve;
+        })
+        $.ajax({
+          url: 'http://localhost:3000/posts',
+          method: 'GET'
+        }).done(function (data) {
+          resolver(data)
+        });
+        return promise;
       }
     });
 
     App.BlogPostComponent = Ember.Component.extend({
       showIf: function () {
-        return this.get('title') === 'Rails is omakase'
+        return this.get('title') === 'Rails is omakase';
       }.property('title'),
 
       autoSetTitle: function () {
