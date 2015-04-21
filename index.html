@@ -23,6 +23,10 @@
     <h1>...</h1>
   </script>
 
+  <script type="text/x-handlebars" data-template-name="error">
+    <h1>:-(</h1>
+  </script>
+
   <script type="text/x-handlebars" data-template-name="components/blog-post">
     <article class="blog-post">
       {{#if showIf}}
@@ -42,7 +46,7 @@
     App.IndexRoute = Ember.Route.extend({
       model: function() {
         return new Ember.RSVP.Promise(function (resolve, reject) {
-          $.ajax('http://localhost:3000/posts').then(resolve, reject)
+          $.ajax('http://localhost:3000/postss').then(resolve, reject)
         })
       }
     });
