@@ -45,12 +45,8 @@
         var promise = new Ember.RSVP.Promise(function (resolve, reject) {
           resolver = resolve;
         })
-        $.ajax({
-          url: 'http://localhost:3000/posts',
-          method: 'GET'
-        }).done(function (data) {
-          resolver(data)
-        });
+        $.ajax('http://localhost:3000/posts').done(resolver)
+
         return promise;
       }
     });
